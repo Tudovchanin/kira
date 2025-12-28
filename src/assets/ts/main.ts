@@ -1,13 +1,17 @@
-// main.ts — один entry
+// main.ts
 document.addEventListener('DOMContentLoaded', async () => {
   const path = window.location.pathname;
 
-  if (path === '/' || path === '/index.html') {
+  // Универсальная проверка для главной страницы
+  // Сработает для: "/", "/index.html", "/repo-name/", "/repo-name/index.html"
+  if (path.endsWith('/') || path.endsWith('/index.html')) {
     const { initIndexPage } = await import('./pages/index');
     initIndexPage();
   }
 
-  if (path === '/about.html') {
-   
+  // Проверка для страницы "О нас"
+  if (path.endsWith('/about.html') || path.endsWith('/about')) {
+    // const { initAboutPage } = await import('./pages/about');
+    // initAboutPage();
   }
 });
