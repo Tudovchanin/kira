@@ -1,0 +1,27 @@
+:root {
+  --color_1: hsl(0, 21%, 94%);
+  --color_2: hsl(0, 4%, 9%);
+  --color_3: hsl(0, 87%, 54%);
+  --color_4: hsl(0, 3%, 13%);
+  --color_5: hsl(157, 4%, 36%);
+  
+
+
+ 
+
+
+  --header-bg:var(--color_1);
+  --typography: var(--color_2);
+  --link-header: var(--color_5);
+
+  --hero-bg:var(--color_2);
+  --hero-info:var(--color_4);
+  --hover:var(--color_3);
+  
+
+  /* Шрифты для текста */
+  --title-bi: 3.5rem;
+  --title-l: 2.5rem;
+  --title-m: 1.75rem;
+  --title-s: 1.25rem;
+}

@@ -1,0 +1,18 @@
+<header class="page__header header">
+<div class="header__content main-container x-center">
+  <a href="/" class="typography typography--logo">
+    {{components.header.logo}}
+  </a>
+  <nav class="header__nav">
+    <ul class="list-nav">
+      {% for item in components.header.menu %}
+      <li class="list-nav__item">
+        <a class="link-nav" href="{{ item.link }}">{{ item.text }}</a>
+      </li>
+    {% endfor %}
+    </ul>
+   
+  </nav>
+</div>
+
+</header>
