@@ -1,9 +1,0 @@
-{
-  "logo": "Kirill Zemzyulin",
-  "menu": [
-    {"text": "Обо мне", "link": "#about"},
-    {"text": "Навыки", "link": "#skills"},
-    {"text": "Портфолио", "link": "#portfolio"},
-    {"text": "Контакты", "link": "#contacts"}
-  ]
-}

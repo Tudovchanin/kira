@@ -162,3 +162,83 @@ export function initSnowSpeed(canvasId: string = 'snow') {
   
   animate();
 }
+export function initNightLights(canvasId: string = 'night-lights') {
+  const canvas = document.getElementById(canvasId) as HTMLCanvasElement;
+  if (!canvas) return;
+  
+  const ctx = canvas.getContext('2d');
+  if (!ctx) return;
+
+  const resize = () => {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+  };
+  resize();
+  window.addEventListener('resize', resize);
+  
+  interface Light {
+    x: number;
+    y: number;
+    size: number;
+    hue: number;
+    brightness: number;
+    pulse: number;
+  }
+  
+  const lights: Light[] = [];
+  const maxLights = 80;
+  
+  // Создать огонёк
+  const createLight = () => ({
+    x: Math.random() * canvas.width,
+    y: canvas.height * (0.3 + Math.random() * 0.4), // окна домов
+    size: 2 + Math.random() * 4,
+    hue: 20 + Math.random() * 40, // тёплый свет
+    brightness: 0.5 + Math.random() * 0.5,
+    pulse: Math.random() * Math.PI * 2
+  });
+  
+  // Заполнить огнями
+  for (let i = 0; i < maxLights; i++) {
+    lights.push(createLight());
+  }
+  
+  const animate = () => {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    
+    lights.forEach(light => {
+      // Пульсация света
+      light.pulse += 0.08;
+      const pulseSize = light.size * (1 + Math.sin(light.pulse) * 0.3);
+      const alpha = light.brightness * (0.6 + Math.sin(light.pulse) * 0.4);
+      
+      // Основной свет
+      const gradient = ctx.createRadialGradient(light.x, light.y, 0, light.x, light.y, pulseSize * 2);
+      gradient.addColorStop(0, `hsla(${light.hue}, 80%, 85%, ${alpha})`);
+      gradient.addColorStop(0.6, `hsla(${light.hue}, 60%, 70%, ${alpha * 0.4})`);
+      gradient.addColorStop(1, 'transparent');
+      
+      ctx.fillStyle = gradient;
+      ctx.beginPath();
+      ctx.arc(light.x, light.y, pulseSize * 2, 0, Math.PI * 2);
+      ctx.fill();
+      
+      // BOKEH блики (круги)
+      ctx.save();
+      ctx.globalCompositeOperation = 'screen';
+      ctx.shadowColor = `hsl(${light.hue}, 70%, 90%)`;
+      ctx.shadowBlur = pulseSize * 2;
+      
+      ctx.fillStyle = `hsla(${light.hue}, 80%, 90%, ${alpha * 0.8})`;
+      ctx.beginPath();
+      ctx.arc(light.x + Math.sin(light.pulse) * 3, light.y, pulseSize * 0.8, 0, Math.PI * 2);
+      ctx.fill();
+      
+      ctx.restore();
+    });
+    
+    requestAnimationFrame(animate);
+  };
+  
+  animate();
+}

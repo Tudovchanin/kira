@@ -1,5 +1,5 @@
 
-import { initRain, initSnowSpeed } from '../components/canvas';
+import { initRain, initSnowSpeed,initNightLights } from '../components/canvas';
 
 export function initIndexPage() {
 
@@ -10,7 +10,6 @@ document.addEventListener('click', (e)=> {
   if(indexActive >= layers.length - 1) return;
   const target = e.target as HTMLElement
   if (!target?.closest('button')) return;
-  // layers.forEach(el=> el.classList.remove('layers--active'));
   layers[indexActive].setAttribute('aria-hidden', 'true');
   indexActive++;
   layers[indexActive].removeAttribute('aria-hidden');
@@ -19,6 +18,7 @@ document.addEventListener('click', (e)=> {
 
   initRain('rain');
   initSnowSpeed('snow');
+  initNightLights('night-lights');
  
   document.addEventListener('mousemove', (e)=> {
 
