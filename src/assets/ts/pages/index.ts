@@ -1,10 +1,25 @@
 
-import { initRain } from '../components/rain';
+import { initRain, initSnowSpeed } from '../components/canvas';
 
 export function initIndexPage() {
-  initRain('rain');
- 
 
+const layers = document.querySelectorAll('.layers');
+let indexActive = 0;
+document.addEventListener('click', (e)=> {
+  if(!layers.length) return;
+  if(indexActive >= layers.length - 1) return;
+  const target = e.target as HTMLElement
+  if (!target?.closest('button')) return;
+  // layers.forEach(el=> el.classList.remove('layers--active'));
+  layers[indexActive].setAttribute('aria-hidden', 'true');
+  indexActive++;
+  layers[indexActive].removeAttribute('aria-hidden');
+  layers[indexActive].classList.add('layers--active');
+})
+
+  initRain('rain');
+  initSnowSpeed('snow');
+ 
   document.addEventListener('mousemove', (e)=> {
 
     Object.assign(document.documentElement, {
